@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RPG Hotseat VTT</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">⚔️ RPG Hotseat VTT</div>
+    <div class="top-actions">
+      <button id="uploadMapBtn">🗺️ Mapa</button>
+      <button id="saveBtn">💾 Salvar</button>
+      <button id="loadBtn">📂 Carregar</button>
+      <button id="resetBtn" class="danger">🧨 Resetar</button>
+      <button id="passTurnBtn">⏭️ Passar Turno</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <section class="panel">
+        <h2>Jogadores</h2>
+        <div class="row">
+          <input id="playerName" placeholder="Nome" />
+          <input id="playerColor" type="color" value="#56ccf2" />
+          <button id="addPlayerBtn">+</button>
+        </div>
+        <div id="playersList" class="list"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Token</h2>
+        <div class="row wrap">
+          <select id="tokenOwner"></select>
+          <input id="tokenName" placeholder="Nome do token" />
+          <input id="tokenSize" type="number" min="20" max="220" value="56" title="Tamanho" />
+          <button id="addTokenBtn">Criar Token</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Grid & Ferramentas</h2>
+        <label><input id="gridEnabled" type="checkbox" checked /> Mostrar grid</label>
+        <label>Grid px <input id="gridSize" type="number" min="20" max="200" value="50" /></label>
+        <label><input id="snapEnabled" type="checkbox" /> Snap no grid</label>
+        <hr />
+        <label><input id="measureTool" type="checkbox" /> Ferramenta medir (M)</label>
+        <label><input id="fogRevealTool" type="checkbox" /> Revelar fog (R)</label>
+        <label><input id="fogHideTool" type="checkbox" /> Ocultar fog (H)</label>
+        <label>Raio fog <input id="fogRadius" type="number" min="20" max="300" value="80" /></label>
+      </section>
+
+      <section class="panel">
+        <h2>Turnos</h2>
+        <label><input id="initiativeMode" type="checkbox" /> Usar iniciativa</label>
+        <div id="turnOrder" class="list"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Dados</h2>
+        <div class="row">
+          <input id="diceExpr" placeholder="2d6+3" />
+          <button id="rollDiceBtn">🎲 Rolar</button>
+        </div>
+        <div id="diceHistory" class="list small"></div>
+      </section>
+
+      <section class="panel hint">
+        <h2>Atalhos</h2>
+        <p>Espaço: passar turno</p>
+        <p>G: grid | S: snap</p>
+        <p>M: medir | R: revelar | H: ocultar fog</p>
+      </section>
+    </aside>
+
+    <section class="map-wrap" id="mapWrap">
+      <canvas id="vttCanvas"></canvas>
+      <div id="activeBanner"></div>
+    </section>
+  </main>
+
+  <input id="mapFileInput" type="file" accept="image/png,image/jpeg" hidden />
+
+  <dialog id="sheetDialog">
+    <form id="sheetForm" method="dialog">
+      <h3>Ficha de Personagem</h3>
+      <input type="hidden" id="sheetTokenId" />
+      <label>Nome <input id="sheetName" /></label>
+      <label>Classe <input id="sheetClass" /></label>
+      <label>Nível <input id="sheetLevel" type="number" min="1" value="1" /></label>
+      <label>HP Atual <input id="sheetHp" type="number" min="0" value="10" /></label>
+      <label>HP Máximo <input id="sheetHpMax" type="number" min="1" value="10" /></label>
+      <label>Anotações <textarea id="sheetNotes" rows="3"></textarea></label>
+      <label>Inventário (1 item por linha) <textarea id="sheetInventory" rows="4"></textarea></label>
+      <label>Avatar PNG <input id="sheetAvatar" type="file" accept="image/png" /></label>
+      <div class="sheet-preview">
+        <img id="sheetAvatarPreview" alt="Avatar" />
+      </div>
+      <menu>
+        <button id="sheetCancelBtn" type="reset">Cancelar</button>
+        <button id="sheetSaveBtn" value="default">Salvar Ficha</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
